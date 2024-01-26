@@ -1,0 +1,43 @@
+{
+  "name": "back-end",
+  "start": "set NODE_ENV=dev && node app.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --silent",
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudinary/url-gen": "^1.15.0",
+    "@types/node": "^20.11.0",
+    "cloudinary": "^1.41.2",
+    "cloudinary-core": "^2.13.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jest-jasmine2": "^29.7.0",
+    "pg": "^8.11.3",
+    "pgmock2": "^2.1.7",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.11",
+    "@types/pg": "^8.10.9",
+    "@types/supertest": "^6.0.2",
+    "chai": "^5.0.0",
+    "get-port": "^7.0.0",
+    "jest": "^29.7.0",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
+  }
+}
