@@ -114,4 +114,6 @@ At the thread viewing page, it is possible to delete the thread. To delete a thr
 
 Feel free to refer to these resources for continuous learning and optimization of your web application. If you encounter any issues or have suggestions, please open an [issue](https://github.com/IRekik/the-place/issues) or submit a [pull request](https://github.com/IRekik/the-place/pulls).
 
+## License
 
+This project is licensed under the MIT License - see the [LICENSE_EN.md](LICENSE_EN.md) file for details.
