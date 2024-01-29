@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { BlogPost } from '../../utils/interfaces/blogPostInterface';
 import { formatDate } from '@/utils/formatDate';
 import EllipsisMenu from './Ellipsis';
-import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
 import  SERVER_URL from '../../utils/environmentVariables/serverUrl'
+import 'react-quill/dist/quill.snow.css';
 
 interface BlogPostDisplayProps {
     post: BlogPost;
@@ -45,11 +45,11 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
             const response = await fetch(`${SERVER_URL}/edit-post/${post.blog_id}`, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                title: editedTitle,
-                text_content: editedContent,
+                    title: editedTitle,
+                    text_content: editedContent,
                 }),
             });
         
@@ -70,14 +70,15 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
     };
 
     return (
-        <div className='blog-post bg-white shadow-lg p-6 rounded-lg mb-4 ml-[5%] mr-[5%] md:ml-[10%] md:mr-[10%] lg:ml-[15%] lg:mr-[15%] min-h-48'>
+        <div className='blog-post bg-white shadow-lg p-6 rounded-lg mb-4 ml-[5%] 
+        mr-[5%] md:ml-[10%] md:mr-[10%] lg:ml-[15%] lg:mr-[15%] min-h-48'>
             <h2 className='text-2xl font-bold mb-4'>
                 {isEditing ? (
                     <input
-                        type="text"
-                        value={editedTitle}
-                        onChange={(e) => setEditedTitle(e.target.value)}
-                        className="text-2xl font-bold mb-4 w-full border-b border-gray-300"
+                    type="text"
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                    className="text-2xl font-bold mb-4 w-full border-b border-gray-300"
                     />
                 ) : (
                     post.title
@@ -93,41 +94,44 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
             {isEditing ? (
                 <div className="mb-4">
                     <QuillEditor
-                        value={editedContent}
-                        onChange={(value) => setEditedContent(value)}
-                        modules={{
-                            toolbar: [
-                                ['bold', 'italic', 'underline', 'strike'],
-                                [{ list: 'ordered' }, { list: 'bullet' }],
-                                ['link', 'image'],
-                                ['clean'],
-                            ],
-                        }}
-                        placeholder="Write your blog post here..."
+                    value={editedContent}
+                    onChange={(value) => setEditedContent(value)}
+                    modules={{
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{ list: 'ordered' }, { list: 'bullet' }],
+                            ['link', 'image'],
+                            ['clean'],
+                        ],
+                    }}
+                    placeholder="Write your blog post here..."
                     />
                 </div>
             ) : (
                 <>
                     {post.img_reference && (
-                        <img src={post.img_reference} alt='Post Image' className='w-auto h-auto mb-4' />
+                        <img 
+                        src={post.img_reference} 
+                        alt='Post Image' 
+                        className='w-auto h-auto mb-4' />
                     )}
                     <p
-                        className="block text-gray-900 mt-1 leading-relaxed"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    className="block text-gray-900 mt-1 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 </>
             )}
             {isEditing && (
                 <div className="flex space-x-2">
                     <button
-                        className=" text-white px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 visited:bg-indigo-300"
-                        onClick={handleSaveEdit}
+                    className=" text-white px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 visited:bg-indigo-300"
+                    onClick={handleSaveEdit}
                     >
                         Save
                     </button>
                     <button
-                        className=" text-white px-4 py-2 rounded-md bg-red-600 hover:bg-red-500 visited:bg-red-300"
-                        onClick={handleCancelEdit}
+                    className=" text-white px-4 py-2 rounded-md bg-red-600 hover:bg-red-500 visited:bg-red-300"
+                    onClick={handleCancelEdit}
                     >
                         Cancel
                     </button>

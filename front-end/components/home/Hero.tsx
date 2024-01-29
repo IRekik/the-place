@@ -13,14 +13,14 @@ const Hero = () => {
     });
     useEffect(() => {
         const fetchData = async () => {
-        try {
-            const response = await fetch(`${SERVER_URL}/get-hero-data`);
-            const data = await response.json();
-            console.log(data);
-            setHeroData(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+            try {
+                const response = await fetch(`${SERVER_URL}/get-hero-data`);
+                const data = await response.json();
+                console.log(data);
+                setHeroData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
 
         fetchData();
@@ -30,19 +30,19 @@ const Hero = () => {
     return (
         <section className='max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row'>
                 <div
-                    className='hero-map absolute inset-0 bg-cover bg-center z-0 opacity-70 mr-10 h-[600px]'
-                    style={{
-                        backgroundImage: 'url("../static/background_img.png")',
-                        clipPath: 'polygon(0% 0%, 15% 0%, 15% 100%, 0% 100%)',
-                    }}
+                className='hero-map absolute inset-0 bg-cover bg-center z-0 opacity-70 mr-10 h-[600px]'
+                style={{
+                    backgroundImage: 'url("../static/background_img.png")',
+                    clipPath: 'polygon(0% 0%, 15% 0%, 15% 100%, 0% 100%)',
+                }}
                 />
 
                 <div
-                    className='hero-map absolute inset-0 bg-cover bg-center z-0 opacity-70 h-[600px]'
-                    style={{
-                    backgroundImage: 'url("../static/background_img.png")',
-                    clipPath: 'polygon(55% 0, 100% 0, 100% 100%, 55% 100%)',
-                    }}
+                className='hero-map absolute inset-0 bg-cover bg-center z-0 opacity-70 h-[600px]'
+                style={{
+                backgroundImage: 'url("../static/background_img.png")',
+                clipPath: 'polygon(55% 0, 100% 0, 100% 100%, 55% 100%)',
+                }}
                 />
 
                 <div className='relative z-20 flex flex-1 flex-col lg:w-1/2 xl:w-1/2 xl:mr-auto xl:max-w-[25%] ml-[20%] mr-[50%] object-contain '>

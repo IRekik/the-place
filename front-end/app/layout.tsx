@@ -1,12 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
 import Footer from '@/components/home/Footer'
-
-import '../styles/globals.css'
 import Navbar from '@/components/home/Navbar'
-
-const inter = Inter({ subsets: ['latin'] })
+import '../styles/globals.css'
 
 export const metadata: Metadata = {
     title: 'Blog',

@@ -19,13 +19,13 @@ describe('Database Connection', () => {
             end: jest.fn(),
         }));
 
-        // Your actual connection parameters
         const connectionParams = {
-            user: 'root',
-            host: 'localhost',
-            database: 'your_database',
-            password: 'your_password',
-            port: 5432,
+            user: process.env.PG_USER,
+            host: process.env.PG_HOST,
+            database: process.env.PG_DATABASE,
+            password: process.env.PG_PASSWORD,
+            port: Number(process.env.PG_PORT),
+            ssl: { rejectUnauthorized: false }
         };
 
         // Create a new Pool instance (mocked)

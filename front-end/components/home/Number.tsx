@@ -8,6 +8,8 @@ interface NumberProps {
 const Number: React.FC<NumberProps> = ({ n }) => {
     const [animatedNumber, setAnimatedNumber] = useState<number>(0);
 
+    // Defines the behavior of the number sequencing, gives it a slow sequencing at the beginning and at the end
+    // and an acceleration at the middle. For more information, search about cubic Bezier curve
     useEffect(() => {
         const interval = 50;
         const steps = 5000 / interval;

@@ -27,12 +27,14 @@ const Speedometer: React.FC<SpeedometerProps> = ({ label, value }) => {
     
     return (
         <div className='text-center'>
-        <h2 className='text-lg font-bold'>{label}</h2>
-        <div className='bg-gray-800 opacity-70 h-20 w-20 rounded-full flex items-center justify-center mx-auto shadow-md'>
-            <span className='text-white text-xl'>
-                <Number n = {value}/>
-            </span>
-        </div>
+            <h2 className='text-lg font-bold'>
+                {label}
+            </h2>
+            <div className='bg-gray-800 opacity-70 h-20 w-20 rounded-full flex items-center justify-center mx-auto shadow-md'>
+                <span className='text-white text-xl'>
+                    <Number n = {value}/>
+                </span>
+            </div>
         </div>
     );
 };
