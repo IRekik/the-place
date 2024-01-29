@@ -19,10 +19,11 @@ The front end of "The Place" blog web application is developed using the Next.js
   - `formatDate.ts`: Utility function for formatting dates.
   - `environmentVariables/`: Contains constants or environment variables.
     - `serverUrl.ts`: File containing the server URL.
-- `pages/`: Contains Next.js pages.
-  - `new-post.tsx`: Page for creating a new blog post.
-  - `posts/[blog_id].tsx`: Page for displaying a single blog post.
-  - `index.tsx`: Home page.
+- `app/`: Contains Next.js pages.
+  - `new-post/page.tsx`: Page for creating a new blog post.
+  - `posts/[blog_id]/page.tsx`: Page for displaying a single blog post.
+  - `index.tsx`: Layout UI shared between routes.
+  - `page.tsx`: Home page.
 
 ### App
 
@@ -65,6 +66,11 @@ The front end of "The Place" blog web application is developed using the Next.js
     ```bash
     npm install
     ```
+4. Build the project:
+
+    ```bash
+    npm run build
+    ```
 
 ### Start the Development Server
 
@@ -80,6 +86,13 @@ Open `http://localhost:3000` in your browser to view the application.
 
 Explore the official documentation of the technologies used:
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://reactjs.org/docs/getting-started.html)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
