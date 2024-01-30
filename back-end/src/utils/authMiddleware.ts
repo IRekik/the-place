@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = String(process.env.SECRET_KEY) || "undefined";
 
+// Middleware that takes the secret key from the environment and uses JWT to verify the token from the http request
+// It will verfies if the token signature is coherent and matches with the secret key. If not, it denies the request.
 const authenticateToken = (req: Request, res: Response, next: NextFunction): Response | void => {
     const tokenHeader = req.header('Authorization');
     if (!tokenHeader) {
@@ -13,8 +15,6 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction): Res
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) {
-            console.log(token);
-            console.log(SECRET_KEY);
             console.log(err);
             if (err.name === 'TokenExpiredError') {
                 return res.status(403).json({ error: 'Forbidden - Token Expired' });
