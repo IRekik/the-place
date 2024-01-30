@@ -1,10 +1,11 @@
 import express from 'express';
 import pool from '../utils/db';
+import authenticateToken from '../utils/authMiddleware';
 
 const router = express.Router();
 
 // GET API endpoint: fetches information related to home page's hero section, comments and users' numbers are just placeholders
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     try {
         const result = await pool.query("SELECT count(*) AS exact_count FROM blogs_table");
         const threadNumber = Number(result.rows[0].exact_count);
