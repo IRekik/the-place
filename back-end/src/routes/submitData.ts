@@ -1,11 +1,12 @@
 import express from 'express';
 import uploadBase64Image from '../utils/cloudinaryIntegration';
 import pool from '../utils/db';
+import authenticateToken from '../utils/authMiddleware';
 
 const router = express.Router();
 
 // Post API endpoint: inserts post's attributes inside the database
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     try {
         const { title, text_content, img_reference } = req.body;
         const tzoffset = (new Date()).getTimezoneOffset() * 60000;
