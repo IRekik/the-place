@@ -82,6 +82,22 @@ npm run dev
 
 Open `http://localhost:3000` in your browser to view the application.
 
+## Tests
+
+The `test` directory contains files for testing the back-end code using Jest.
+
+### Prerequisites
+Ensure you have [Node.js](https://nodejs.org/) installed.
+
+### Running Tests
+
+    To execute the tests, run the following command:
+
+    ```bash
+    npm install
+    npm test
+    ```
+
 ## Learn More
 
 Explore the official documentation of the technologies used:

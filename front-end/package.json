@@ -29,6 +29,7 @@
     "@babel/preset-react": "^7.23.3",
     "@testing-library/react": "^14.1.2",
     "@types/d3-ease": "^3.0.2",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18",
@@ -37,10 +38,14 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.0.0",
+    "jsdom-global": "^3.0.2",
     "postcss": "^8",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "ts-jest": "^29.1.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
   }
 }
