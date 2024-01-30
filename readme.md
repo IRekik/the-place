@@ -116,4 +116,4 @@ Feel free to refer to these resources for continuous learning and optimization o
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE_EN.md](LICENSE_EN.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE_EN.txt](LICENSE_EN.txt) file for details.
