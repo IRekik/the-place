@@ -2,11 +2,10 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { parseContent } from '../../utils/contentBoxParser'
-import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import SERVER_URL from '../../utils/environmentVariables/serverUrl'
-
-const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
+import TitleInput from '@/components/new-post/TitleInput';
+import ContentEditor from '@/components/new-post/ContentEditor';
 
 const NewPost: React.FC = () => {
     const router = useRouter();
@@ -15,35 +14,6 @@ const NewPost: React.FC = () => {
     const [postStatus, setPostStatus] = useState<string | null>(null);
     const [hasEnteredTitle, setHasEnteredTitle] = useState(true);
     const [hasEnteredContent, setHasEnteredContent] = useState(true);
-
-    const quillModules = {
-        toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image'],
-            [{ align: [] }],
-            [{ color: [] }],
-            ['code-block'],
-            ['clean'],
-        ],
-    };
-
-    const quillFormats = [
-        'header',
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'blockquote',
-        'list',
-        'bullet',
-        'link',
-        'image',
-        'align',
-        'color',
-        'code-block',
-    ];
 
     const handleEditorChange = (newContent: React.SetStateAction<string>) => {
         setContent(newContent);
@@ -95,7 +65,7 @@ const NewPost: React.FC = () => {
                 console.error('Error:', error);
                 setPostStatus('Error creating post. Please try again.');
             }
-        }  
+        }
     };
 
     return (
@@ -115,37 +85,10 @@ const NewPost: React.FC = () => {
             )}
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                        Title
-                    </label>
-                    <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={title}
-                    onChange={handleTitleChange}
-                    className="mt-1 p-2 w-full border rounded-md"
-                    placeholder="Title"
-                    />
+                    <TitleInput title={title} onTitleChange={handleTitleChange} />
                 </div>
                 <div className="mb-4">
-                    <label 
-                    htmlFor="content" 
-                    className="block text-sm font-medium text-gray-700">
-                        Content
-                    </label>
-                    <div className="h-80 mt-2 w-full flex items-left flex-col bg-white">
-                        <div className="h-full rounded-md">
-                            <QuillEditor
-                            value={content}
-                            onChange={handleEditorChange}
-                            modules={quillModules}
-                            formats={quillFormats}
-                            placeholder="Write your blog post here..."
-                            className="w-full h-[80%]"
-                            />
-                        </div>
-                    </div>
+                    <ContentEditor content={content} onContentChange={handleEditorChange} />
                 </div>
                 <button
                 type="submit"
