@@ -4,6 +4,7 @@ import { BlogPost } from '../../../utils/interfaces/blogPostInterface';
 import { notFound, usePathname} from 'next/navigation';
 import BlogPostDisplay from '@/components/blogs/BlogPostDisplay';
 import SERVER_URL from '../../../utils/environmentVariables/serverUrl'
+import TOKEN from '../../../utils/environmentVariables/token'
 
 const Post: React.FC = () => {
     const [post, setPost] = useState<BlogPost | null>(null);
@@ -17,7 +18,13 @@ const Post: React.FC = () => {
                     return;
                 }
 
-                const response = await fetch(`${SERVER_URL}/get-post-by-id/${postId}`);
+                const response = await fetch(`${SERVER_URL}/get-post-by-id/${postId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${TOKEN}`,
+                    },
+                });
                 const postData: BlogPost = await response.json();
                 
                 setStatus(response.status);

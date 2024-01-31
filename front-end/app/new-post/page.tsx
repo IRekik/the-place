@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { parseContent } from '../../utils/contentBoxParser'
 import 'react-quill/dist/quill.snow.css';
 import SERVER_URL from '../../utils/environmentVariables/serverUrl'
+import TOKEN from '../../utils/environmentVariables/token'
 import TitleInput from '@/components/new-post/TitleInput';
 import ContentEditor from '@/components/new-post/ContentEditor';
 
@@ -44,6 +45,7 @@ const NewPost: React.FC = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${TOKEN}`,
                 },
                 body: JSON.stringify({ title, text_content, img_reference }),
                 });

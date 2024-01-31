@@ -4,6 +4,7 @@ import StatisticsSpeedometers from './StatisticsSpeedometers';
 import Link from 'next/link';
 import { HeroData } from '../../utils/interfaces/heroDataInterface';
 import SERVER_URL from '../../utils/environmentVariables/serverUrl';
+import TOKEN from '../../utils/environmentVariables/token';
 
 const Hero = () => {
     const [heroData, setHeroData] = useState<HeroData>({
@@ -14,7 +15,13 @@ const Hero = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${SERVER_URL}/get-hero-data`);
+                const response = await fetch(`${SERVER_URL}/get-hero-data`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${TOKEN}`,
+                    },
+                });
                 const data = await response.json();
                 console.log(data);
                 setHeroData(data);

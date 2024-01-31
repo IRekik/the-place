@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/formatDate';
 import EllipsisMenu from './Ellipsis';
 import dynamic from 'next/dynamic';
 import  SERVER_URL from '../../utils/environmentVariables/serverUrl'
+import  TOKEN from '../../utils/environmentVariables/token'
 import 'react-quill/dist/quill.snow.css';
 
 interface BlogPostDisplayProps {
@@ -24,6 +25,10 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
         try {
             const response = await fetch(`${SERVER_URL}/delete-post/${post.blog_id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${TOKEN}`,
+                },
             });
             if (response.ok) {
                 console.log(response);
@@ -46,6 +51,7 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${TOKEN}`,
                 },
                 body: JSON.stringify({
                     title: editedTitle,

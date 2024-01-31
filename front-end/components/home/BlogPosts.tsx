@@ -4,6 +4,10 @@ import { formatDate } from '../../utils/formatDate'
 import Link from 'next/link';
 import { BlogPost } from '../../utils/interfaces/blogPostInterface';
 import SERVER_URL from '../../utils/environmentVariables/serverUrl';
+import TOKEN from '../../utils/environmentVariables/token';
+
+console.log(SERVER_URL);
+console.log(TOKEN);
 
 const BlogPosts = () => {
     const initialDisplayCount = 3;
@@ -14,7 +18,15 @@ const BlogPosts = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${SERVER_URL}/get-all-posts`);
+                console.log(TOKEN);
+                const response = await fetch(`${SERVER_URL}/get-all-posts`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${TOKEN}`,
+                    },
+                });
+                console.log(response.headers);
                 const data: BlogPost[] = await response.json();
 
                 setPosts(data);
