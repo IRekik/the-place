@@ -23,7 +23,6 @@ const Hero = () => {
                     },
                 });
                 const data = await response.json();
-                console.log(data);
                 setHeroData(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
