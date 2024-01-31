@@ -22,7 +22,6 @@ const BlogPosts = () => {
                         'Authorization': `Bearer ${TOKEN}`,
                     },
                 });
-                console.log(response.headers);
                 const data: BlogPost[] = await response.json();
 
                 setPosts(data);

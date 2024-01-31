@@ -26,7 +26,7 @@ interface SpeedometerProps {
 const Speedometer: React.FC<SpeedometerProps> = ({ label, value }) => {
     
     return (
-        <div className='text-center'>
+        <div className='text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4'>
             <h2 className='text-lg font-bold'>
                 {label}
             </h2>

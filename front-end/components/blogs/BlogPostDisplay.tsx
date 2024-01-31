@@ -31,7 +31,6 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
                 },
             });
             if (response.ok) {
-                console.log(response);
                 router.push('/');
             } else {
                 console.error('Failed to delete post.');
