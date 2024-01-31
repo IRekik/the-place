@@ -29,8 +29,8 @@ The front end of "The Place" blog web application is developed using the Next.js
 
 To ensure the integrity and security of the application, secrets and sensitive information have been stored as system variables. Here is a list of environment variables to set up:
 
-`SECRET_KEY`: JWT secret key used to generate a JWT Token.
-`TOKEN`: JWT Token generated using `SECRET_KEY`.
+- `SECRET_KEY`: JWT secret key used to generate a JWT Token.
+- `TOKEN`: JWT Token generated using `SECRET_KEY`.
 
 ### App
 

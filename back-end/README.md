@@ -29,16 +29,16 @@ This TypeScript configuration file defines compiler options, including target, m
 
 To ensure the integrity and security of the application, secrets and sensitive information have been stored as system variables. Here is a list of environment variables to set up:
 
-`CLOUD_NAME`: Cloudinary cloud name.
-`CLOUDINARY_API_KEY`: Cloudinary API key.
-`CLOUDINARY_API_SECRET`: Cloudinary API secret.
-`PG_USER`: PostgreSQL Pool connection's user field.
-`PG_HOST`: PostgreSQL Pool connection's host field.
-`PG_DATABASE`: PostgreSQL Pool connection's database field.
-`PG_PASSWORD`: PostgreSQL Pool connection's password field.
-`PG_PORT`: PostgreSQL Pool connection's port.
-`SECRET_KEY`: JWT secret key used to generate a JWT Token.
-`TOKEN`: JWT Token generated using `SECRET_KEY`.
+- `CLOUD_NAME`: Cloudinary cloud name.
+- `CLOUDINARY_API_KEY`: Cloudinary API key.
+- `CLOUDINARY_API_SECRET`: Cloudinary API secret.
+- `PG_USER`: PostgreSQL Pool connection's user field.
+- `PG_HOST`: PostgreSQL Pool connection's host field.
+- `PG_DATABASE`: PostgreSQL Pool connection's database field.
+- `PG_PASSWORD`: PostgreSQL Pool connection's password field.
+- `PG_PORT`: PostgreSQL Pool connection's port.
+- `SECRET_KEY`: JWT secret key used to generate a JWT Token.
+- `TOKEN`: JWT Token generated using `SECRET_KEY`.
 
 ## Server Entry Point
 
