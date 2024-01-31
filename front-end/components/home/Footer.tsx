@@ -6,15 +6,15 @@ const footerNavs = [
         label: "Resources",
         items: [
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Contact'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Support'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Documentation'
             },
         ],
@@ -23,19 +23,19 @@ const footerNavs = [
         label: "About",
         items: [
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Terms'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'License'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Privacy'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'About US'
             },
         ]
@@ -44,15 +44,15 @@ const footerNavs = [
         label: "Explore",
         items: [
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Guidelines'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Collaborators'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Languages'
             },
         ]
@@ -61,15 +61,15 @@ const footerNavs = [
         label: "Company",
         items: [
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Partners'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Team'
             },
             {
-                href: 'javascript:void()',
+                href: '#',
                 name: 'Careers'
             },
         ],
@@ -148,12 +148,12 @@ const Footer = () => {
                 </div>
                 <div className="mt-10 py-10 border-t border-gray-700 items-center justify-between sm:flex">
                     <div className="flex items-center gap-x-6 text-gray-400 mt-6">
-                        <a href="javascript:void()">
+                        <a href="#">
                             {/* Facebook Icon */}
                             <svg className="w-6 h-6 hover:text-gray-500 duration-150" 
                             fill="none" 
                             viewBox="0 0 48 48">
-                                <g clip-path="url(#a)">
+                                <g clipPath="url(#a)">
                                     <path fill="currentColor" 
                                     d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24c0 11.979 8.776 21.908 20.25 
                                     23.708v-16.77h-6.094V24h6.094v-5.288c0-6.014 3.583-9.337 9.065-9.337 2.625 
@@ -167,12 +167,12 @@ const Footer = () => {
                                     </defs>
                             </svg>
                         </a>
-                        <a href="javascript:void()">
+                        <a href="#">
                             { /* Twitter Icon */}
                             <svg className="w-6 h-6 hover:text-gray-500 duration-150" 
                             fill="none" 
                             viewBox="0 0 48 48">
-                                <g clip-path="url(#clip0_17_80)">
+                                <g clipPath="url(#clip0_17_80)">
                                     <path fill="currentColor" 
                                     d="M15.1 43.5c18.11 0 28.017-15.006 28.017-28.016 0-.422-.01-.853-.029-1.275A19.998 
                                     19.998 0 0048 9.11c-1.795.798-3.7 1.32-5.652 1.546a9.9 9.9 0 004.33-5.445 19.794 19.794 
@@ -188,7 +188,7 @@ const Footer = () => {
                                 </defs>
                             </svg>
                         </a>
-                        <a href="javascript:void()">
+                        <a href="#">
                             { /* GitHub Icon */}
                             <svg className="w-6 h-6 hover:text-gray-500 duration-150" fill="none" viewBox="0 0 48 48">
                                 <g fill="currentColor" clipPath="url(#clip0_910_44)">
