@@ -1,5 +1,7 @@
 # The Place, a blog web application
 
+[![jp](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/IRekik/the-place/blob/main/README.jp.md)
+
 A blog web application developped using Next.JS framework, along with React for front end and Typescript Express back-end server. The Place currently three different cloud services to run on the cloud: Cloudinary for image hosting and access, Render for cloud database hosting and two AWS EC2s to run separately back end and front end.
 
 ## Installation
