@@ -28,14 +28,19 @@ jobs:
         cd back-end
         npm run build
 
-    - name: "Echo in file"
+    - name: Print variable
       env:
-        SECRETS_VARS: ${{ toJson(secrets) }}
-      run: echo "$SECRETS_VARS" > "secrets.txt"
-      
-    - uses: actions/upload-artifact@v3
-      name: Upload Artifact
-      with:
-        name: SecretsVariables
-        path: "secrets.txt"
+        CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        PG_USER: ${{ secrets.PG_USER }}
+        PG_HOST: ${{ secrets.PG_HOST }}
+        PG_DATABASE: ${{ secrets.PG_DATABASE }}
+        PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+        PG_PORT: ${{ secrets.PG_PORT }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        TOKEN: ${{ secrets.TOKEN }}
+      run: |
+        cd back-end
+        npm run test
       
