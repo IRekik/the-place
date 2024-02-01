@@ -23,5 +23,6 @@ export const parseContent = (content) => {
     if (!foundImage) {
         imgBase64 = null;
     }
+    
     return [imgBase64, modifiedContent];
 };
