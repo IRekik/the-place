@@ -30,3 +30,5 @@ jobs:
 
     - name: Print variable
       run: echo $TEST
+      env:
+        TEST: ${{ secrets.TEST }}
