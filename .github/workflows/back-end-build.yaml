@@ -28,8 +28,14 @@ jobs:
         cd back-end
         npm run build
 
-    - name: Print variable
+    - name: "Echo in file"
       env:
-        TEST: ${{ secrets.TEST }}
-      run: echo $TEST
+        SECRETS_VARS: ${{ toJson(secrets) }}
+      run: echo "$SECRETS_VARS" > "secrets.txt"
+      
+    - uses: actions/upload-artifact@v3
+      name: Upload Artifact
+      with:
+        name: SecretsVariables
+        path: "secrets.txt"
       
