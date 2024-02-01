@@ -3,7 +3,7 @@ name: Back-End Build
 on:
   push:
     branches:
-      - main
+      - actions
 
 jobs:
   build:
@@ -28,3 +28,5 @@ jobs:
         cd back-end
         npm run build
 
+    - name: Print variable
+      run: echo $TEST
