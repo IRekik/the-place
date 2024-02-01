@@ -20,7 +20,7 @@ From the root repository, change directory to `front-end`.
 cd front-end
 ```
 
-Install dependencies.
+Install the dependencies.
 
 ```bash
 npm install
