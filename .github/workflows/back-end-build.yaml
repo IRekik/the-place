@@ -1,9 +1,9 @@
-name: Back-End Build
+name: Back-End CI Pipeline
 
 on:
   push:
     branches:
-      - actions
+      - main
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
         cd back-end
         npm run build
 
-    - name: Print variable
+    - name: Unit Testing
       env:
         CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
         CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}

@@ -1,4 +1,4 @@
-name: Front-End Build
+name: Front-End CI Pipeline
 
 on:
   push:
@@ -27,3 +27,8 @@ jobs:
       run: |
         cd front-end
         npm run build
+
+    - name: Unit Testing
+      run: |
+        cd front-end
+        npm run test
