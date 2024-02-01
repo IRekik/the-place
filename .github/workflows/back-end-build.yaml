@@ -1,4 +1,4 @@
-name: Back-End Build
+name: Back-End CI Pipeline
 
 on:
   push:
@@ -28,3 +28,19 @@ jobs:
         cd back-end
         npm run build
 
+    - name: Unit Testing
+      env:
+        CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        PG_USER: ${{ secrets.PG_USER }}
+        PG_HOST: ${{ secrets.PG_HOST }}
+        PG_DATABASE: ${{ secrets.PG_DATABASE }}
+        PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+        PG_PORT: ${{ secrets.PG_PORT }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        TOKEN: ${{ secrets.TOKEN }}
+      run: |
+        cd back-end
+        npm run test
+      
