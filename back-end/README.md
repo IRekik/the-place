@@ -1,6 +1,6 @@
 # Back-end Folder Documentation
 
-[![jp](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/IRekik/the-place/blob/main/back-end/README.jp.md)
+[![jp](https://img.shields.io/badge/lang-jp-yellow.svg)](https://github.com/IRekik/the-place/blob/main/back-end/README.jp.md)
 
 This document provides an overview of the back-end folder structure, configuration files, and key components for "The Place" blog web application developed using the Next.js framework, React, and TypeScript Express for the front-end and back-end, respectively.
 

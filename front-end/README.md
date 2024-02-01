@@ -1,6 +1,6 @@
 # The Place - Front End
 
-[![jp](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/IRekik/the-place/blob/main/front-end/README.jp.md)
+[![jp](https://img.shields.io/badge/lang-jp-yellow.svg)](https://github.com/IRekik/the-place/blob/main/front-end/README.jp.md)
 
 
 The front end of "The Place" blog web application is developed using the Next.js framework, React for the UI components, and TypeScript for a more robust development experience. This section provides an overview of the project structure, key components, and how to set up and run the front-end locally.
