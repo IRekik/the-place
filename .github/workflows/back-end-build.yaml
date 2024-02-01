@@ -29,6 +29,7 @@ jobs:
         npm run build
 
     - name: Print variable
-      run: echo $TEST
       env:
         TEST: ${{ secrets.TEST }}
+      run: echo $TEST
+      
