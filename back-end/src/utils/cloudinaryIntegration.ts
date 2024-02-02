@@ -1,7 +1,7 @@
 import { v2 as cloudinary, UploadApiResponse, UploadApiOptions } from 'cloudinary';
 
 cloudinary.config({ 
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    cloud_name: process.env.CLOUD_NAME, 
     api_key: process.env.CLOUDINARY_API_KEY, 
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
@@ -10,7 +10,7 @@ cloudinary.config({
 const uploadBase64Image = async (base64Image: string, options: UploadApiOptions = {}) => {
     try {
         const result: UploadApiResponse = await cloudinary.uploader.upload(base64Image, options);
-
+        console.log("REACH 3");
         console.log('Upload success:', JSON.stringify(result, null, 2));
         return result.url;
     } catch (error) {

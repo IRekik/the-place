@@ -1,28 +1,26 @@
 // Receives text including text content and optionally image in base64. Returns the image in base64 and the text content.
+const cheerio = require('cheerio');
+
 export const parseContent = (content) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, 'text/html');
-    const pTags = doc.querySelectorAll('p');
+    const $ = cheerio.load(content);
+    const pTags = $('p');
 
-    let imgBase64 = "data:image/png;base64,";
+    let imgBase64Array = [];
     let modifiedContent = '';
-    let foundImage = false;
 
-    pTags.forEach((pTag) => {
-        const imgTag = pTag.querySelector('img');
+    pTags.each((index, pTag) => {
+        const imgTags = $(pTag).find('img');
 
-        if (imgTag) {
-            imgBase64 += imgTag.src.split(',')[1];
-            foundImage = true;
-            pTag.removeChild(imgTag);
-        }
+        imgTags.each((imgIndex, imgTag) => {
+            const imgSrc = $(imgTag).attr('src');
+            if (imgSrc) {
+                imgBase64Array.push(`data:image/png;base64,${imgSrc.split(',')[1]}`);
+                $(imgTag).remove();
+            }
+        });
 
-        modifiedContent += `<p>${pTag.innerHTML}</p>`;
+        modifiedContent += `<p>${$(pTag).html()}</p>`;
     });
 
-    if (!foundImage) {
-        imgBase64 = null;
-    }
-    
-    return [imgBase64, modifiedContent];
+    return [imgBase64Array, modifiedContent];
 };

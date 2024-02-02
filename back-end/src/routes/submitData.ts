@@ -8,18 +8,26 @@ const router = express.Router();
 // Post API endpoint: inserts post's attributes inside the database
 router.post('/', authenticateToken, async (req, res) => {
     try {
-        const { title, text_content, img_reference } = req.body;
+        const { title, text_content, img_references } = req.body;
         const tzoffset = (new Date()).getTimezoneOffset() * 60000;
         const creation_date = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
 
         let query;
         let params;
 
+        let img_links = [];
+
         // Conditional for database insertion, depending whether an image has been provided or not
-        if (img_reference) {
-            const img_link = await uploadBase64Image(img_reference);
+        if (img_references && img_references.length > 0) {
+            for (var img_reference of img_references) {
+                console.log("REACH 1");
+                let img_link = await uploadBase64Image(img_reference);
+                console.log("REACH 2");    
+                img_links.push(img_link);       
+            }
+            console.log(img_links);
             query = 'INSERT INTO blogs_table (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *';
-            params = [title, text_content, creation_date, img_link];
+            params = [title, text_content, creation_date, img_links];
         } else {
             query = 'INSERT INTO blogs_table (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *';
             params = [title, text_content, creation_date];

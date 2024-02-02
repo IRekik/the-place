@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { parseContent } from '../../utils/contentBoxParser'
+import { parseContent } from '../../utils/contentBoxParser.js'
 import 'react-quill/dist/quill.snow.css';
 import SERVER_URL from '../../utils/environmentVariables/serverUrl'
 import TOKEN from '../../utils/environmentVariables/token'
@@ -40,14 +40,14 @@ const NewPost: React.FC = () => {
         }
         else {
             try {
-                const [img_reference, text_content] = parseContent(content);
+                const [img_references, text_content] = parseContent(content);
                 const response = await fetch(`${SERVER_URL}/submit-data`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${TOKEN}`,
                 },
-                body: JSON.stringify({ title, text_content, img_reference }),
+                body: JSON.stringify({ title, text_content, img_references }),
                 });
 
                 if (response.ok) {
