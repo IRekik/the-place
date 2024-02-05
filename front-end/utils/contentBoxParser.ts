@@ -1,10 +1,10 @@
 // Receives text including text content and optionally image in base64. Returns the image in base64 and the text content.
-export const parseContent = (content) => {
+export const parseContent = (content: string): [string | null, string] => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
     const pTags = doc.querySelectorAll('p');
 
-    let imgBase64 = "data:image/png;base64,";
+    let imgBase64: string | null = "data:image/png;base64,";
     let modifiedContent = '';
     let foundImage = false;
 

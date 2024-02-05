@@ -1,18 +1,18 @@
-const { parseContent } = require('./../utils/contentBoxParser');
-const { JSDOM } = require('jsdom');
+import { parseContent } from './../utils/contentBoxParser';
+import { JSDOM, DOMWindow } from 'jsdom';
 
 const dom = new JSDOM('<!doctype html><html><body></body></html>');
 global.document = dom.window.document;
-global.window = dom.window;
+global.window = dom.window as unknown as Window & typeof globalThis;
 global.navigator = dom.window.navigator;
 
 // Add DOMParser to the global object
-global.DOMParser = new JSDOM().window.DOMParser;
+global.DOMParser = dom.window.DOMParser;
 
 describe('parseContent function', () => {
     // Test case of parsing with an <img> tag
     it('should correctly parse content with an image', () => {
-        const contentWithImage = '<p>This is some text content with an image:</p><p><img src="data:image/png;base64,ABC123" alt="Example Image"/></p>';
+        const contentWithImage: string = '<p>This is some text content with an image:</p><p><img src="data:image/png;base64,ABC123" alt="Example Image"/></p>';
 
         const [imgBase64, modifiedContent] = parseContent(contentWithImage);
 
@@ -22,11 +22,11 @@ describe('parseContent function', () => {
 
     // Test case of parsing without an <img> tag
     it('should correctly parse content without an image', () => {
-        const contentWithoutImage = '<p>This is some text content without an image.</p>';
+        const contentWithoutImage: string = '<p>This is some text content without an image.</p>';
 
         const [imgBase64, modifiedContent] = parseContent(contentWithoutImage);
 
-        expect(imgBase64).toBeNull(); 
+        expect(imgBase64).toBeNull();
         expect(modifiedContent).toEqual('<p>This is some text content without an image.</p>');
     });
 });
