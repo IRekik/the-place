@@ -15,7 +15,7 @@ router.post('/:postId', authenticateToken, async (req, res) => {
         const postId = req.params.postId;
         const result = await pool.query('UPDATE blogs_table SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1', [postId, title, text_content, edit_date]);
 
-        console.log('Data edited in the database:', result.rows[0]);
+        console.log('Data edited in the database:', result);
         res.json({ message: 'Data received and inserted successfully' });
     } catch (error) {
         console.error('Error editing data in the database:', error);
