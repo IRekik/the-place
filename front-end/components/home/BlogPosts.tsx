@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import Link from "next/link";
+import Image from "next/image";
 import { BlogPost } from "../../utils/interfaces/blogPostInterface";
 import SERVER_URL from "../../utils/environmentVariables/serverUrl";
 import TOKEN from "../../utils/environmentVariables/token";
@@ -57,7 +58,7 @@ const BlogPosts = () => {
               <a className="block">
                 <div className="ml-2">
                   {item.img_reference && (
-                    <img
+                    <Image
                       src={item.img_reference}
                       loading="lazy"
                       alt="Img"

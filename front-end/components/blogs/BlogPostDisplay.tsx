@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { BlogPost } from "../../utils/interfaces/blogPostInterface";
 import { formatDate } from "@/utils/formatDate";
 import EllipsisMenu from "./Ellipsis";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import SERVER_URL from "../../utils/environmentVariables/serverUrl";
 import TOKEN from "../../utils/environmentVariables/token";
@@ -120,7 +121,7 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
       ) : (
         <>
           {post.img_reference && (
-            <img
+            <Image
               src={post.img_reference}
               alt="Post Image"
               className="w-auto h-auto mb-4"
