@@ -19,6 +19,7 @@ router.get('/:postId', authenticateToken, async (req, res) => {
             console.log('Post retrieved from the database:', post);
             res.json(post);
         } else {
+            console.log('Error retrieving post from the database, post ID is missing')
             res.status(404).json({ error: 'The request does not include a post ID' });
         }
     } catch (error) {

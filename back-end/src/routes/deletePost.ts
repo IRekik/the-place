@@ -17,8 +17,8 @@ router.delete('/:postId', authenticateToken, async (req, res) => {
             } else {
                 res.status(404).json({ error: 'Post not found' });
             }
-        }
-        else {
+        } else {
+            console.log('Error deleting post from the database, one or multiple fields are missing')
             res.status(404).json({ error: 'The request does not include a post ID' });
         }
     } catch (error) {

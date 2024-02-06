@@ -31,6 +31,7 @@ router.post('/', authenticateToken, async (req, res) => {
             res.json({ message: 'Data received and inserted successfully', blog_id: result.rows[0].blog_id});
             console.log(res);
         } else {
+            console.log('Error submitting post data to the database, one or multiple fields are missing')
             res.status(404).json({ error: 'The request is either missing a title or content' });
         }
     } catch (error) {

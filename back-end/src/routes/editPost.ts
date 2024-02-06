@@ -20,6 +20,7 @@ router.post('/:postId', authenticateToken, async (req, res) => {
             console.log('Data edited in the database:', result);
             res.json({ message: 'Data received and inserted successfully' });
         } else {
+            console.log('Error editing post in the database, one or multiple fields are missing')
             res.status(404).json({ error: 'The request is either missing a title, content or a blog ID' });
         }
     } catch (error) {

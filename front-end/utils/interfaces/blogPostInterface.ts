@@ -5,4 +5,4 @@ export interface BlogPost {
     creation_date: string;
     edit_date?: string | null;
     img_reference?: string;
-  }
+}
