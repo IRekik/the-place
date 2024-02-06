@@ -1,63 +1,63 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { BlogPost } from '../../../utils/interfaces/blogPostInterface';
-import { notFound, usePathname} from 'next/navigation';
-import BlogPostDisplay from '@/components/blogs/BlogPostDisplay';
-import SERVER_URL from '../../../utils/environmentVariables/serverUrl'
-import TOKEN from '../../../utils/environmentVariables/token'
+"use client";
+import { useEffect, useState } from "react";
+import { BlogPost } from "../../../utils/interfaces/blogPostInterface";
+import { notFound, usePathname } from "next/navigation";
+import BlogPostDisplay from "@/components/blogs/BlogPostDisplay";
+import SERVER_URL from "../../../utils/environmentVariables/serverUrl";
+import TOKEN from "../../../utils/environmentVariables/token";
 
 const Post: React.FC = () => {
-    const [post, setPost] = useState<BlogPost | null>(null);
-    const [status, setStatus] = useState<number | null>(null);
-    const postId = usePathname().split('/').pop();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [status, setStatus] = useState<number | null>(null);
+  const postId = usePathname().split("/").pop();
 
-    useEffect((): void => {
-        const fetchData = async (): Promise<void> => {
-            try {
-                if (!postId) {
-                    return;
-                }
+  useEffect((): void => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        if (!postId) {
+          return;
+        }
 
-                const response = await fetch(`${SERVER_URL}/get-post-by-id/${postId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${TOKEN}`,
-                    },
-                });
-                const postData: BlogPost = await response.json();
-                
-                setStatus(response.status);
-                setPost(postData);
-            } catch (error) {
-                console.error(`Error fetching data for post ID ${postId}:`, error);
-            }
-        };
+        const response = await fetch(`${SERVER_URL}/get-post-by-id/${postId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        });
+        const postData: BlogPost = await response.json();
 
-        fetchData();
-    }, [postId]);
+        setStatus(response.status);
+        setPost(postData);
+      } catch (error) {
+        console.error(`Error fetching data for post ID ${postId}:`, error);
+      }
+    };
 
-    if (status == 404) {
-        return notFound();
-    }
+    fetchData();
+  }, [postId]);
 
-    if (!post) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
-            </div>
-        );
-    }
+  if (status == 404) {
+    return notFound();
+  }
 
+  if (!post) {
     return (
-        <div>
-            {post && (
-                <div className="relative">
-                    <BlogPostDisplay post={post} />
-                </div>
-            )}
-        </div>
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+      </div>
     );
+  }
+
+  return (
+    <div>
+      {post && (
+        <div className="relative">
+          <BlogPostDisplay post={post} />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Post;

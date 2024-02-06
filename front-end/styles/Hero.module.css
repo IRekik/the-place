@@ -1,6 +1,6 @@
 .gradient-border {
-    flex: 1;
-    background: linear-gradient(to right, transparent, #ff0000);
-    height: 100%;
-    width: 5px;
+  flex: 1;
+  background: linear-gradient(to right, transparent, #ff0000);
+  height: 100%;
+  width: 5px;
 }
