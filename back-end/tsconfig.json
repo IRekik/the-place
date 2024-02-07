@@ -8,5 +8,5 @@
         "strict": true,
     },
     "include": ["src/**/*.ts", "test/**/*.ts"],
-    "files": ["src/utils/types.d.ts"]
+    "files": ["src/middleware/types.d.ts"]
 }

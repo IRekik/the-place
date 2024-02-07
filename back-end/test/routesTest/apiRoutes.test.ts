@@ -1,5 +1,5 @@
 // Changing the PG database to a test database for the purpose of not altering main database
-process.env.PG_DATABASE = 'theplace_db_test';
+process.env.PG_DATABASE = "theplace_db_test";
 import { request } from "./testSetup";
 
 const TOKEN = String(process.env.TOKEN) || "undefined";
