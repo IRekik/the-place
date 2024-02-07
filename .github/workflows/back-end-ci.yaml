@@ -10,42 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install dependencies
-      run: |
-        cd back-end
-        npm install
+      - name: Install dependencies
+        run: |
+          cd back-end
+          npm install
 
-    - name: Build project
-      run: |
-        cd back-end
-        npm run build
-    
-    - name: Static Code Analysis
-      run: |
-        cd back-end
-        npm run lint
+      - name: Build project
+        run: |
+          cd back-end
+          npm run build
 
-    - name: Unit Testing
-      env:
-        CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
-        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-        CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-        PG_USER: ${{ secrets.PG_USER }}
-        PG_HOST: ${{ secrets.PG_HOST }}
-        PG_DATABASE: ${{ secrets.PG_DATABASE }}
-        PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-        PG_PORT: ${{ secrets.PG_PORT }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        TOKEN: ${{ secrets.TOKEN }}
-      run: |
-        cd back-end
-        npm run test
-      
+      - name: Static Code Analysis
+        run: |
+          cd back-end
+          npm run lint
+
+      - name: Unit Testing
+        env:
+          CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_HOST: ${{ secrets.PG_HOST }}
+          PG_DATABASE: ${{ secrets.PG_DATABASE }}
+          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_PORT: ${{ secrets.PG_PORT }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          cd back-end
+          npm run test

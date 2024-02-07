@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../utils/db";
+import knexInstance from "../utils/db";
 import authenticateToken from "../middleware/authMiddleware";
 
 const router = express.Router();
@@ -7,28 +7,32 @@ const router = express.Router();
 // Delete API endpoint: deletes element from the database using provided ID
 router.delete("/:postId", authenticateToken, async (req, res) => {
   try {
-    if (req.params.postId) {
-      const postId = req.params.postId;
-      const result = await pool.query(
-        "DELETE FROM blogs_table WHERE blog_id = $1",
-        [postId]
-      );
+    const postId = req.params.postId;
 
-      if (result.rowCount === 1) {
-        res.status(204).json(result.rows[0]);
-        console.log("Post deleted from the database:", postId);
-      } else {
-        res.status(404).json({ error: "Post not found" });
-      }
-    } else {
+    if (!postId) {
       console.log(
-        "Error deleting post from the database, one or multiple fields are missing"
+        "Error deleting post from the database: The request does not include a post ID"
       );
-      res.status(404).json({ error: "The request does not include a post ID" });
+      return res
+        .status(404)
+        .json({ error: "The request does not include a post ID" });
+    }
+
+    // Delete the element from the database using knex
+    const rowsAffected = await knexInstance("blogs_table")
+      .where("blog_id", postId)
+      .del();
+
+    if (rowsAffected === 1) {
+      console.log("Post deleted from the database:", postId);
+      return res.status(204).send();
+    } else {
+      console.log("Post not found:", postId);
+      return res.status(404).json({ error: "Post not found" });
     }
   } catch (error) {
     console.error("Error deleting post from the database:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

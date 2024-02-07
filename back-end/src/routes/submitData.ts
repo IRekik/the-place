@@ -1,6 +1,6 @@
 import express from "express";
 import uploadBase64Image from "../utils/cloudinaryIntegration";
-import pool from "../utils/db";
+import knexInstance from "../utils/db";
 import authenticateToken from "../middleware/authMiddleware";
 
 const router = express.Router();
@@ -14,37 +14,41 @@ router.post("/", authenticateToken, async (req, res) => {
       .toISOString()
       .slice(0, -1);
 
-    let query;
-    let params;
-    if (title && text_content) {
-      // Conditional for database insertion, depending whether an image has been provided or not
-      if (img_reference) {
-        const img_link = await uploadBase64Image(img_reference);
-        query =
-          "INSERT INTO blogs_table (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *";
-        params = [title, text_content, creation_date, img_link];
-      } else {
-        query =
-          "INSERT INTO blogs_table (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *";
-        params = [title, text_content, creation_date];
-      }
-      const result = await pool.query(query, params);
+    let queryBuilder = knexInstance("blogs_table").returning("*");
 
-      console.log("Data inserted into the database:", result.rows[0]);
-
-      res.json({
-        message: "Data received and inserted successfully",
-        blog_id: result.rows[0].blog_id,
-      });
-      console.log(res);
-    } else {
+    if (!title || !text_content) {
       console.log(
-        "Error submitting post data to the database, one or multiple fields are missing"
+        "Error submitting post data to the database: One or multiple fields are missing"
       );
-      res
-        .status(404)
+      return res
+        .status(400)
         .json({ error: "The request is either missing a title or content" });
     }
+
+    if (img_reference) {
+      const img_link = await uploadBase64Image(img_reference);
+      queryBuilder = queryBuilder.insert({
+        title,
+        content: text_content,
+        creation_date,
+        img_reference: img_link,
+      });
+    } else {
+      queryBuilder = queryBuilder.insert({
+        title,
+        content: text_content,
+        creation_date,
+      });
+    }
+
+    const result = await queryBuilder;
+
+    console.log("Data inserted into the database:", result[0]);
+
+    res.json({
+      message: "Data received and inserted successfully",
+      blog_id: result[0].blog_id,
+    });
   } catch (error) {
     console.error("Error inserting data into the database:", error);
     res.status(500).json({ error: "Internal Server Error" });

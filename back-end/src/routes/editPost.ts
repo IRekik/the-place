@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../utils/db";
+import knexInstance from "../utils/db";
 import authenticateToken from "../middleware/authMiddleware";
 
 const router = express.Router();
@@ -12,23 +12,26 @@ router.post("/:postId", authenticateToken, async (req, res) => {
   const edit_date = new Date(Date.now() - tzoffset).toISOString().slice(0, -1);
 
   try {
-    if (req.params.postId && title && text_content) {
-      const postId = req.params.postId;
-      const result = await pool.query(
-        "UPDATE blogs_table SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1",
-        [postId, title, text_content, edit_date]
-      );
+    const postId = req.params.postId;
 
-      console.log("Data edited in the database:", result);
-      res.json({ message: "Data received and inserted successfully" });
-    } else {
+    if (!postId || !title || !text_content) {
       console.log(
-        "Error editing post in the database, one or multiple fields are missing"
+        "Error editing post in the database: one or multiple fields are missing"
       );
-      res.status(404).json({
-        error: "The request is either missing a title, content or a blog ID",
+      return res.status(404).json({
+        error: "The request is either missing a title, content, or a blog ID",
       });
     }
+
+    // Update the database using knex
+    await knexInstance("blogs_table").where("blog_id", postId).update({
+      title,
+      content: text_content,
+      edit_date,
+    });
+
+    console.log("Data edited in the database");
+    res.json({ message: "Data received and inserted successfully" });
   } catch (error) {
     console.error("Error editing data in the database:", error);
     res.status(500).json({ error: "Internal Server Error" });
