@@ -48,3 +48,10 @@ jobs:
         run: |
           cd back-end
           npm run test
+
+      - name: OWASP Dependency Check
+        uses: dependency-check/dependency-check-action@v2
+        with:
+          format: "ALL"
+          scan: "true"
+          out: "dependency-check-report"
