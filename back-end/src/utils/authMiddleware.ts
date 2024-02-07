@@ -28,7 +28,9 @@ const authenticateToken = (
         return res.status(403).json({ error: "Forbidden - Invalid Token" });
       }
     }
-    req.user = user;
+    if (typeof user !== "string" && typeof user === "object") {
+      req.user = user as User;
+    }
     next();
   });
 };

@@ -27,6 +27,11 @@ jobs:
       run: |
         cd back-end
         npm run build
+    
+    - name: Static Code Analysis
+      run: |
+        cd back-end
+        npm run lint
 
     - name: Unit Testing
       env:

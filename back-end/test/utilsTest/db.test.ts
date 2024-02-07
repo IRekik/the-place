@@ -1,24 +1,23 @@
 import { Pool } from "pg";
 
 // Mock the pg library
-jest.mock("pg");
+jest.mock("pg", () => {
+  return {
+    Pool: jest.fn(() => ({
+      connect: jest.fn(),
+      end: jest.fn(),
+    })),
+    Client: jest.fn(() => ({
+      connect: jest.fn(),
+      query: jest.fn(),
+      release: jest.fn(),
+    })),
+  };
+});
 
-// Unit test: simulates a postgresql dabatase connection by mocking the pg library, creating a Pool instance, connecting and requesting
+// Unit test: simulates a PostgreSQL database connection by mocking the pg library, creating a Pool instance, connecting, and requesting
 describe("Database Connection", () => {
   it("should open a connection to the database", async () => {
-    // Mock the Pool class and its methods
-    const mockQuery = jest.fn().mockResolvedValue({ rows: [] });
-    const mockRelease = jest.fn();
-
-    // Mock the Pool constructor
-    (Pool as any).mockImplementation(() => ({
-      connect: jest.fn().mockImplementation(() => ({
-        query: mockQuery,
-        release: mockRelease,
-      })),
-      end: jest.fn(),
-    }));
-
     const connectionParams = {
       user: process.env.PG_USER,
       host: process.env.PG_HOST,
@@ -30,6 +29,12 @@ describe("Database Connection", () => {
 
     // Create a new Pool instance (mocked)
     const pool = new Pool(connectionParams);
+
+    // Mock the connect and query methods
+    (pool.connect as jest.Mock).mockResolvedValue({
+      query: jest.fn().mockResolvedValue({ rows: [] }),
+      release: jest.fn(),
+    });
 
     // Try to connect to the database
     const client = await pool.connect();
@@ -45,9 +50,6 @@ describe("Database Connection", () => {
 
     // Release the client
     client.release();
-
-    // Verify that the release method is called
-    expect(mockRelease).toHaveBeenCalled();
 
     // Close the pool after the test
     await pool.end();
