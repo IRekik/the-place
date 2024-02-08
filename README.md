@@ -76,6 +76,26 @@ npm start
 
 The server will run locally on `http://localhost:3001`. The back end is running on the port 3001, make sure to not already use it when running the front end, otherwise it will not be able to run.
 
+## Deployment
+
+The project's current deployment strategy relies on the AWS EC2 cloud platform for both the front end and back end. Among the multiple choices that were available to host the web application, two options were more suitable: EC2 and Vercel. Vercel is the cloud service provided by the developers of Next.js, making its integration smooth with Next.js applications. However, Vercel enforces the usage of HTTPS on their platform. Therefore, given that the project does not have a domain name yet, making HTTP the option by default, and to facilitate pre-production development, the choice of deploying on EC2 was prioritized over Vercel. AWS EC2 allows more flexibility and control over configuration, which makes it a good option for development preceding production level. The following will explain one way of deploying on EC2.
+
+### Create two EC2 instances
+
+Following the general structure of the project, front end and back end are treated as two separate entities and are hosted separately. Therefore, it is recommended to create two instances: one for back end and one for front end. For each instance, it is required to enable the ports that will be used for requests. In this case, it is required to enable ports 3000 for front end and 3001 for back end. Finally, the instances need to be started to open a connection. It is also recommended to configure an elastic IP for each instance. This will allow to keep a static IP address and will simplify server access.
+
+### Set up the project and run it
+
+Once connections are established with the EC2 instances, the source code need to be installed on each instance. The `Installation` section explains with detail how to install the source code. Once installation is over, each EC2 will be able to run its subproject. To run the subprojects, the `Getting Started` explains how to run using `npm`. It is important to remember that each EC2 only run one part of the project. The current setup is meant to provide more scalability once the project will grow in size and traffic. It is also interesting to note that to run the project for an extended period of time after closing the SSH session, it is recommended to run the commands inside a `screen` on Linux to detach the execution from the SSH session.
+
+### Access the website
+
+Once both instances are running their respective subprojects, the website can be accessed by typing the front end EC2 IP address, followed by the port where the front end is running. The link should be similar to the following.
+
+```
+http://x.xx.xxx.xx:xxxx/
+```
+
 ## Features and design
 
 ### Home page and layout
