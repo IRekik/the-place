@@ -36,7 +36,7 @@ jobs:
       - name: Dependency Check
         run: |
           cd front-end
-          npm audit --json > audit.json
+          sudo npm audit --json > audit.json
           # Check if any high severity vulnerabilities are found
           if grep -q '"severity":"high"' audit.json; then
             echo "High severity vulnerabilities found!"
