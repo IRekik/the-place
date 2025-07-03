@@ -57,7 +57,7 @@
 提供された投稿IDを使用してデータベースからブログ投稿を削除します。
 
 ```javascript
-const result = await pool.query('DELETE FROM blogs_table WHERE blog_id = $1', [postId]);
+const result = await pool.query('DELETE FROM blog_post WHERE blog_id = $1', [postId]);
 ```
 
 ### ブログ投稿の編集
@@ -67,7 +67,7 @@ const result = await pool.query('DELETE FROM blogs_table WHERE blog_id = $1', [p
 提供された投稿IDを使用してブログ投稿のタイトルとテキストコンテンツを更新し、編集日時を記録します。
 
 ```javascript
-const result = await pool.query('UPDATE blogs_table SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1', [postId, title, text_content, edit_date]);
+const result = await pool.query('UPDATE blog_post SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1', [postId, title, text_content, edit_date]);
 ```
 
 ### すべてのブログ投稿の取得
@@ -76,7 +76,7 @@ const result = await pool.query('UPDATE blogs_table SET title = $2, content = $3
 
 データベースからすべてのブログ投稿を取得します。すべてのフィールドが含まれます。
 ```javascript
-const result = await pool.query('SELECT * FROM blogs_table ORDER BY creation_date DESC');
+const result = await pool.query('SELECT * FROM blog_post ORDER BY creation_date DESC');
 ```
 
 ### ヒーローセクションデータの取得
@@ -86,7 +86,7 @@ const result = await pool.query('SELECT * FROM blogs_table ORDER BY creation_dat
 ホームページのヒーローセクションに関連する情報を取得します。スレッド、コメント、およびユーザーの数がプレースホルダーとして提供されます。
 
 ```javascript
-const result = await pool.query("SELECT count(*) AS exact_count FROM blogs_table");
+const result = await pool.query("SELECT count(*) AS exact_count FROM blog_post");
 ```
 
 ### IDでブログ投稿の取得
@@ -96,7 +96,7 @@ const result = await pool.query("SELECT count(*) AS exact_count FROM blogs_table
 提供された投稿IDに基づいてデータベースから特定のブログ投稿を取得します。
 
 ```javascript
-const result = await pool.query('SELECT * FROM blogs_table WHERE blog_id = $1', [postId]);
+const result = await pool.query('SELECT * FROM blog_post WHERE blog_id = $1', [postId]);
 ```
 
 ### 新しいブログ投稿の投稿
@@ -108,10 +108,10 @@ const result = await pool.query('SELECT * FROM blogs_table WHERE blog_id = $1', 
 ```javascript
 if (img_reference) {
     const img_link = await uploadBase64Image(img_reference);
-    query = 'INSERT INTO blogs_table (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *';
+    query = 'INSERT INTO blog_post (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *';
     params = [title, text_content, creation_date, img_link];
 } else {
-    query = 'INSERT INTO blogs_table (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *';
+    query = 'INSERT INTO blog_post (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *';
     params = [title, text_content, creation_date];
 }
 ```

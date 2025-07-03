@@ -7,7 +7,7 @@ const router = express.Router();
 // Get API endpoint: fetches all blog posts from the database, including all fields
 router.get("/", authenticateToken, async (req, res) => {
   try {
-    const result = await knexInstance("blogs_table")
+    const result = await knexInstance("blog_post")
       .select("*")
       .orderBy("creation_date", "desc");
     const data = result;

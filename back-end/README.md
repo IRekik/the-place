@@ -59,7 +59,7 @@ The back-end utilizes Express.js for routing. Each route handler corresponds to 
 Deletes a blog post from the database using the provided post ID.
 
 ```javascript
-const result = await pool.query('DELETE FROM blogs_table WHERE blog_id = $1', [postId]);
+const result = await pool.query('DELETE FROM blog_post WHERE blog_id = $1', [postId]);
 ```
 
 ### Edit a Blog Post
@@ -69,7 +69,7 @@ const result = await pool.query('DELETE FROM blogs_table WHERE blog_id = $1', [p
 Updates the title and text content of a blog post using the provided post ID while logging the edit date.
 
 ```javascript
-const result = await pool.query('UPDATE blogs_table SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1', [postId, title, text_content, edit_date]);
+const result = await pool.query('UPDATE blog_post SET title = $2, content = $3, edit_date = $4 WHERE blog_id = $1', [postId, title, text_content, edit_date]);
 ```
 
 ### Get All Blog Posts
@@ -78,7 +78,7 @@ const result = await pool.query('UPDATE blogs_table SET title = $2, content = $3
 
 Fetches all blog posts from the database, including all fields.
 ```javascript
-const result = await pool.query('SELECT * FROM blogs_table ORDER BY creation_date DESC');
+const result = await pool.query('SELECT * FROM blog_post ORDER BY creation_date DESC');
 ```
 
 ### Get Hero Section Data
@@ -88,7 +88,7 @@ const result = await pool.query('SELECT * FROM blogs_table ORDER BY creation_dat
 Fetches information related to the home page's hero section. The number of threads, comments, and users are provided as placeholders.
 
 ```javascript
-const result = await pool.query("SELECT count(*) AS exact_count FROM blogs_table");
+const result = await pool.query("SELECT count(*) AS exact_count FROM blog_post");
 ```
 
 ### Get a Blog Post by ID
@@ -97,7 +97,7 @@ const result = await pool.query("SELECT count(*) AS exact_count FROM blogs_table
 
 Fetches a specific blog post from the database based on the provided post ID.
 ```javascript
-const result = await pool.query('SELECT * FROM blogs_table WHERE blog_id = $1', [postId]);
+const result = await pool.query('SELECT * FROM blog_post WHERE blog_id = $1', [postId]);
 ```
 
 ### Post a New Blog Post
@@ -109,10 +109,10 @@ Inserts a new blog post into the database. The endpoint supports both text and i
 ```javascript
 if (img_reference) {
     const img_link = await uploadBase64Image(img_reference);
-    query = 'INSERT INTO blogs_table (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *';
+    query = 'INSERT INTO blog_post (title, content, creation_date, img_reference) VALUES ($1, $2, $3, $4) RETURNING *';
     params = [title, text_content, creation_date, img_link];
 } else {
-    query = 'INSERT INTO blogs_table (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *';
+    query = 'INSERT INTO blog_post (title, content, creation_date) VALUES ($1, $2, $3) RETURNING *';
     params = [title, text_content, creation_date];
 }
 ```

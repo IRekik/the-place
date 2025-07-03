@@ -14,7 +14,7 @@ router.post("/", authenticateToken, async (req, res) => {
       .toISOString()
       .slice(0, -1);
 
-    let queryBuilder = knexInstance("blogs_table").returning("*");
+    let queryBuilder = knexInstance("blog_post").returning("*");
 
     if (!title || !text_content) {
       console.log(

@@ -19,7 +19,7 @@ router.delete("/:postId", authenticateToken, async (req, res) => {
     }
 
     // Delete the element from the database using knex
-    const rowsAffected = await knexInstance("blogs_table")
+    const rowsAffected = await knexInstance("blog_post")
       .where("blog_id", postId)
       .del();
 

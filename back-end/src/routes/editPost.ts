@@ -24,7 +24,7 @@ router.post("/:postId", authenticateToken, async (req, res) => {
     }
 
     // Update the database using knex
-    await knexInstance("blogs_table").where("blog_id", postId).update({
+    await knexInstance("blog_post").where("blog_id", postId).update({
       title,
       content: text_content,
       edit_date,

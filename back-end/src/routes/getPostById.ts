@@ -19,7 +19,7 @@ router.get("/:postId", authenticateToken, async (req, res) => {
     }
 
     // Fetch the post from the database using knex
-    const post = await knexInstance("blogs_table")
+    const post = await knexInstance("blog_post")
       .where("blog_id", postId)
       .first();
 
