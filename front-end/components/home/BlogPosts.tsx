@@ -33,7 +33,7 @@ const BlogPosts = () => {
 
     fetchData();
   }, []);
-  const visiblePosts = posts.slice(0, displayCount);
+  const visiblePosts = Array.isArray(posts) ? posts.slice(0, displayCount) : [];
 
   const handleLoadMore = () => {
     setDisplayCount((prevCount) => prevCount + 3);

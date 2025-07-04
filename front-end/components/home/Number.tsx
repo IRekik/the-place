@@ -37,7 +37,7 @@ const Number: React.FC<NumberProps> = ({ n }) => {
     return () => clearInterval(animation);
   }, [n]);
 
-  return <div>{animatedNumber.toFixed(0)}</div>;
+  return <div>{typeof animatedNumber === "number" ? animatedNumber.toFixed(0) : "0"}</div>;
 };
 
 export default Number;

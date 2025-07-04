@@ -9,6 +9,10 @@ import getPostByIdRouter from "./routes/getPostById";
 import submitDataRouter from "./routes/submitData";
 import getHeroData from "./routes/getHeroData";
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express();
 const PORT = 3001;
 

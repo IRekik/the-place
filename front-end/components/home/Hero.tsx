@@ -13,6 +13,7 @@ const Hero = () => {
     users: 0,
   });
   useEffect(() => {
+    console.log(SERVER_URL);
     const fetchData = async () => {
       try {
         const response = await fetch(`${SERVER_URL}/get-hero-data`, {
