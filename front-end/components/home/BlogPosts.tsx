@@ -61,7 +61,9 @@ const BlogPosts = () => {
                     <Image
                       src={item.img_reference}
                       loading="lazy"
-                      alt="Img"
+                      alt="Img" 
+                      width={80}
+                      height={80}
                       className="w-20 rounded-lg"
                     />
                   )}

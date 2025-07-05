@@ -35,7 +35,7 @@ const Hero = () => {
   const { threads, comments, users } = heroData;
 
   return (
-    <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row">
+    <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row bg-white text-black">
       <div
         className="hero-map absolute inset-0 bg-cover bg-center z-0 opacity-70 mr-10 h-[600px]"
         style={{

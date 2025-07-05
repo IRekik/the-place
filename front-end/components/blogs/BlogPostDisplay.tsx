@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { BlogPost } from "../../utils/interfaces/blogPostInterface";
 import { formatDate } from "@/utils/formatDate";
@@ -10,6 +10,8 @@ import SERVER_URL from "../../utils/environmentVariables/serverUrl";
 import TOKEN from "../../utils/environmentVariables/token";
 import "react-quill/dist/quill.snow.css";
 
+
+
 interface BlogPostDisplayProps {
   post: BlogPost;
 }
@@ -17,10 +19,22 @@ interface BlogPostDisplayProps {
 const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
 
 const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
+  
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editedContent, setEditedContent] = useState(post.content);
+  const [imgDimensions, setImgDimensions] = useState<{ width: number; height: number } | null>(null);
+  
+  useEffect(() => {
+    if (!post.img_reference) return;
+    
+    const img = new window.Image();
+    img.src = post.img_reference;
+    img.onload = () => {
+      setImgDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+    };
+  }, [post.img_reference]);
 
   const handleDelete = async () => {
     try {
@@ -80,7 +94,7 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
 
   return (
     <div
-      className="blog-post bg-white shadow-lg p-6 rounded-lg mb-4 ml-[5%] 
+      className="blog-post bg-white text-black shadow-lg p-6 rounded-lg mb-4 ml-[5%] 
         mr-[5%] md:ml-[10%] md:mr-[10%] lg:ml-[15%] lg:mr-[15%] min-h-48"
     >
       <h2 className="text-2xl font-bold mb-4">
@@ -120,11 +134,13 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
         </div>
       ) : (
         <>
-          {post.img_reference && (
+          {post.img_reference && imgDimensions && (
             <Image
               src={post.img_reference}
               alt="Post Image"
-              className="w-auto h-auto mb-4"
+              width={imgDimensions.width}
+              height={imgDimensions.height}
+              className="mb-4"
             />
           )}
           <p
