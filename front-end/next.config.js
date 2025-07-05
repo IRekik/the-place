@@ -4,6 +4,9 @@ const nextConfig = {
     SERVER_URL: process.env.SERVER_URL,
     TOKEN: process.env.TOKEN,
   },
+  images: {
+    domains: ['images.unsplash.com'],
+  }
 };
 
 module.exports = nextConfig;

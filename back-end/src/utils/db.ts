@@ -1,4 +1,7 @@
 import knex from "knex";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Opens a connection to the database using knex
 
@@ -10,7 +13,7 @@ const knexInstance = knex({
     database: process.env.PG_DATABASE,
     password: process.env.PG_PASSWORD,
     port: Number(process.env.PG_PORT),
-    ssl: { rejectUnauthorized: false },
+    ssl: false,
   },
 });
 
