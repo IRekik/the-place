@@ -16,7 +16,7 @@ const Hero = () => {
     console.log(SERVER_URL);
     const fetchData = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/get-hero-data`, {
+        const response = await fetch(`${SERVER_URL}/api/blog-post/get-hero-data`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -39,7 +39,7 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `${SERVER_URL}/delete-post/${post.blog_id}`,
+        `${SERVER_URL}/api/blog-post/delete-post/${post.blog_id}`,
         {
           method: "DELETE",
           headers: {
@@ -64,7 +64,7 @@ const BlogPostDisplay: React.FC<BlogPostDisplayProps> = ({ post }) => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/edit-post/${post.blog_id}`, {
+      const response = await fetch(`${SERVER_URL}/api/blog-post/edit-post/${post.blog_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

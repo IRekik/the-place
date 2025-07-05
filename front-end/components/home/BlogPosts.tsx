@@ -16,7 +16,7 @@ const BlogPosts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/get-all-posts`, {
+        const response = await fetch(`${SERVER_URL}/api/blog-post/get-all-posts`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

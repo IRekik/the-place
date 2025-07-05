@@ -18,7 +18,7 @@ const Post: React.FC = () => {
           return;
         }
 
-        const response = await fetch(`${SERVER_URL}/get-post-by-id/${postId}`, {
+        const response = await fetch(`${SERVER_URL}/api/blog-post/get-post-by-id/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

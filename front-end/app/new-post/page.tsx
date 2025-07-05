@@ -40,7 +40,7 @@ const NewPost: React.FC = () => {
     } else {
       try {
         const [img_reference, text_content] = parseContent(content);
-        const response = await fetch(`${SERVER_URL}/submit-data`, {
+        const response = await fetch(`${SERVER_URL}/api/blog-post/submit-data`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
