@@ -2,3 +2,5 @@
 
 front-end/.env.local
 back-end/.env
+
+**/package-lock.json
