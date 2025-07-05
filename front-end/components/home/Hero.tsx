@@ -57,9 +57,9 @@ const Hero = () => {
           Welcome to ThePlace
         </h1>
         <p className="regular-18 mt-2 text-gray-40">
-          The place where you can share your voice, virtually.
+          Expect all kind of blog content here.
           <br />
-          The place where you can listen to others.
+          Currently under development.
         </p>
         <StatisticsSpeedometers
           totalThreads={threads}
