@@ -24,10 +24,10 @@ router.delete("/:postId", authenticateToken, async (req, res) => {
       .del();
 
     if (rowsAffected === 1) {
-      console.log("Post deleted from the database:", postId);
+      process.env.NODE_ENV === "development" && console.log("Post deleted from the database:", postId);
       return res.status(204).send();
     } else {
-      console.log("Post not found:", postId);
+      console.error("Post not found:", postId);
       return res.status(404).json({ error: "Post not found" });
     }
   } catch (error) {

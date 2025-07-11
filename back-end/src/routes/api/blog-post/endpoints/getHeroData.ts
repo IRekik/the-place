@@ -14,9 +14,10 @@ router.get("/", authenticateToken, async (req, res) => {
       throw new Error("No data found");
     }
     const threadNumber = Number(result.exact_count);
-    const commentNumber = 37;
-    const userNumber = 43;
-    console.log("Threads, comments and users retrieved:", threadNumber);
+    // No users and comments at the moment
+    const commentNumber = 0;
+    const userNumber = 0;
+    process.env.NODE_ENV === "development" && console.log("Threads, comments and users retrieved:", threadNumber);
     res.json({
       threads: threadNumber,
       comments: commentNumber,

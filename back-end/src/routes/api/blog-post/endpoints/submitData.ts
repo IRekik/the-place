@@ -17,7 +17,7 @@ router.post("/", authenticateToken, async (req, res) => {
     let queryBuilder = knexInstance("blog_post").returning("*");
 
     if (!title || !text_content) {
-      console.log(
+      console.error(
         "Error submitting post data to the database: One or multiple fields are missing"
       );
       return res
@@ -43,7 +43,7 @@ router.post("/", authenticateToken, async (req, res) => {
 
     const result = await queryBuilder;
 
-    console.log("Data inserted into the database:", result[0]);
+    process.env.NODE_ENV === "development" && console.log("Data inserted into the database:", result[0]);
 
     res.json({
       message: "Data received and inserted successfully",

@@ -15,7 +15,7 @@ router.post("/:postId", authenticateToken, async (req, res) => {
     const postId = req.params.postId;
 
     if (!postId || !title || !text_content) {
-      console.log(
+      console.error(
         "Error editing post in the database: one or multiple fields are missing"
       );
       return res.status(404).json({
@@ -30,7 +30,7 @@ router.post("/:postId", authenticateToken, async (req, res) => {
       edit_date,
     });
 
-    console.log("Data edited in the database");
+    process.env.NODE_ENV === "development" && console.log("Data edited in the database");
     res.json({ message: "Data received and inserted successfully" });
   } catch (error) {
     console.error("Error editing data in the database:", error);

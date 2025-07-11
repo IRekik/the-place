@@ -16,7 +16,7 @@ router.get("/", authenticateToken, async (req, res) => {
       throw new Error("No data found");
     }
 
-    console.log("All blogs retrieved from the database:", data);
+    process.env.NODE_ENV === "development" && console.log("All blogs retrieved from the database:", data);
     res.json(data);
   } catch (error) {
     console.error("Error retrieving data from the database:", error);

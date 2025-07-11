@@ -21,7 +21,7 @@ const uploadBase64Image = async (
       options
     );
 
-    console.log("Upload success:", result?.asset_id);
+    process.env.NODE_ENV === "development" && console.log("Upload success:", JSON.stringify(result, null, 2));
     return result.url;
   } catch (error) {
     console.error("Upload error:", JSON.stringify(error, null, 2));

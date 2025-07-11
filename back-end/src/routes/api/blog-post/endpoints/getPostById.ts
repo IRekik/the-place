@@ -24,11 +24,11 @@ router.get("/:postId", authenticateToken, async (req, res) => {
       .first();
 
     if (!post) {
-      console.log("Post not found:", postId);
+      console.error("Post not found:", postId);
       return res.status(404).json({ error: "Post not found" });
     }
 
-    console.log("Post retrieved from the database:", post);
+    process.env.NODE_ENV === "development" && console.log("Post retrieved from the database:", post);
     return res.json(post);
   } catch (error) {
     console.error("Error retrieving post from the database:", error);
