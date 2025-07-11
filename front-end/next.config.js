@@ -5,8 +5,8 @@ const nextConfig = {
     TOKEN: process.env.TOKEN,
   },
   images: {
-    domains: ['images.unsplash.com'],
-  }
+    domains: ["images.unsplash.com", "res.cloudinary.com"],
+  },
 };
 
 module.exports = nextConfig;

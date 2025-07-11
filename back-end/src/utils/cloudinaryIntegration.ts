@@ -5,7 +5,7 @@ import {
 } from "cloudinary";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
@@ -21,7 +21,7 @@ const uploadBase64Image = async (
       options
     );
 
-    console.log("Upload success:", JSON.stringify(result, null, 2));
+    console.log("Upload success:", result?.asset_id);
     return result.url;
   } catch (error) {
     console.error("Upload error:", JSON.stringify(error, null, 2));
