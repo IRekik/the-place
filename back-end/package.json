@@ -17,6 +17,7 @@
     "@cloudinary/url-gen": "^1.15.0",
     "@types/knex": "^0.16.1",
     "@types/node": "^20.11.0",
+    "bcryptjs": "^3.0.3",
     "cloudinary": "^1.41.2",
     "cloudinary-core": "^2.13.0",
     "cors": "^2.8.5",
