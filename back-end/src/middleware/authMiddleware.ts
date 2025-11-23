@@ -39,3 +39,29 @@ const authenticateToken = (
 };
 
 export default authenticateToken;
+
+// // Middleware that checks a page password from request headers or body
+// const loginMiddleware = (req: Request, res: Response, next: NextFunction) => {
+//   // You can pass the password via header or body
+//   const pagePassword = req.header("x-page-password") || req.body?.pagePassword;
+
+//   if (!pagePassword) {
+//     return res.status(401).json({ error: "Unauthorized - Missing password" });
+//   }
+
+//   const correctPassword = process.env.PAGE_ACCESS_PWD;
+
+//   if (!correctPassword) {
+//     console.error("PAGE_ACCESS_PWD is not set in environment variables.");
+//     return res.status(500).json({ error: "Server misconfiguration" });
+//   }
+
+//   if (pagePassword !== correctPassword) {
+//     return res.status(403).json({ error: "Forbidden - Incorrect password" });
+//   }
+
+//   // Password is correct, allow access
+//   next();
+// };
+
+// export default loginMiddleware;
