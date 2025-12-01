@@ -3,11 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import TOKEN from "../../utils/environmentVariables/token";
 
 export default function RegisterPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,8 +33,11 @@ export default function RegisterPage() {
 
       const res = await fetch(`${base}/api/auth/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${TOKEN}`,
+         },
+        body: JSON.stringify({ username, email, password, pseudo, firstName, lastName }),
       });
 
       if (res.ok) {
@@ -83,6 +90,36 @@ export default function RegisterPage() {
               required
               className="w-full p-2 border rounded-lg"
             />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Pseudo</label>
+            <input
+              type="text"
+              value={pseudo}
+              onChange={(e) => setPseudo(e.target.value)}
+              className="w-full p-2 border rounded-lg"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-1 font-medium">First name</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full p-2 border rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block mb-1 font-medium">Last name</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="w-full p-2 border rounded-lg"
+              />
+            </div>
           </div>
           <div>
             <label className="block mb-1 font-medium">Password</label>

@@ -5,6 +5,9 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  pseudo?: string;
+  firstName?: string;
+  lastName?: string;
   admin?: boolean;
   roles?: string[];
   created_at?: Date;
@@ -12,6 +15,10 @@ export interface User {
 
 export const findUserByEmail = async (email: string) => {
   return knexInstance<User>("users").where({ email }).first();
+};
+
+export const findUserByUsername = async (username: string) => {
+  return knexInstance<User>("users").where({ username }).first();
 };
 
 export const createUser = async (user: User) => {

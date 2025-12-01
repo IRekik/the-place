@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { findUserByEmail, User } from "../../../models/userModels";
+import { findUserByUsername, User } from "../../../models/userModels";
 
 dotenv.config();
 
@@ -10,16 +10,16 @@ const SECRET_KEY = String(process.env.SECRET_KEY) || "undefined";
 
 const router = express.Router();
 
-// Login route: expects { email, password } in body
+// Login route: expects { username, password } in body
 router.post("/", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ error: "Missing email or password" });
+    if (!username || !password) {
+      return res.status(400).json({ error: "Missing username or password" });
     }
 
-    const existingUser = await findUserByEmail(email);
+    const existingUser = await findUserByUsername(username);
     if (!existingUser) return res.status(400).json({ error: "Invalid credentials" });
 
     const passwordMatches = await bcrypt.compare(password, existingUser.password);
