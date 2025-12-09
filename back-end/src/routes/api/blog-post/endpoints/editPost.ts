@@ -1,11 +1,11 @@
 import express from "express";
 import knexInstance from "../../../../utils/db";
-import { authenticateToken } from "../../../../middleware/authMiddleware";
+import { authenticateToken, ensureAdmin } from "../../../../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Edit API endpoint: update the database using a new title, text content of a given post id, while logging edit date
-router.post("/:postId", authenticateToken, async (req, res) => {
+router.post("/:postId", authenticateToken, ensureAdmin, async (req, res) => {
   const { title, text_content } = req.body;
 
   const tzoffset = new Date().getTimezoneOffset() * 60000;

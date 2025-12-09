@@ -35,6 +35,14 @@ export default function Page() {
             console.warn("Unable to access localStorage:", err);
           }
         }
+        // store user info returned from the server (if present)
+        if (body?.user) {
+          try {
+            localStorage.setItem("user", JSON.stringify(body.user));
+          } catch (err) {
+            console.warn("Unable to store user in localStorage:", err);
+          }
+        }
         router.push("/");
         return;
       }

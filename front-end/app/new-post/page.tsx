@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { parseContent } from "../../utils/contentBoxParser";
 import "react-quill/dist/quill.snow.css";
 import SERVER_URL from "../../utils/environmentVariables/serverUrl";
@@ -10,6 +11,30 @@ import ContentEditor from "@/components/new-post/ContentEditor";
 
 const NewPost: React.FC = () => {
   const router = useRouter();
+
+  // Synchronously check localStorage on render to avoid flashing the page
+  let initialAdmin = false;
+  if (typeof window !== "undefined") {
+    try {
+      const rawUser = localStorage.getItem("user");
+      if (rawUser) {
+        const user = JSON.parse(rawUser);
+        initialAdmin = Boolean(user?.admin);
+      }
+    } catch (err) {
+      initialAdmin = false;
+    }
+  }
+
+  const [allowed, setAllowed] = useState<boolean>(initialAdmin);
+
+  // If not allowed, replace URL to /404 immediately after mount
+  useEffect(() => {
+    if (!allowed) {
+      router.replace("/404");
+    }
+    // keep allowed in state in case it changes later
+  }, [allowed, router]);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [postStatus, setPostStatus] = useState<string | null>(null);
@@ -57,6 +82,11 @@ const NewPost: React.FC = () => {
             router.push(`/posts/${insertedId}`);
           }, 1000);
         } else {
+          if (response.status === 403) {
+            // Not allowed -> show 404
+            router.replace('/404');
+            return;
+          }
           setPostStatus("Failed to create post. Please try again.");
         }
 
@@ -68,6 +98,10 @@ const NewPost: React.FC = () => {
       }
     }
   };
+
+  if (allowed === null) {
+    return <div />; // loading / checking
+  }
 
   return (
     <div className="max-w-2xl mx-auto mt-8 mb-5">

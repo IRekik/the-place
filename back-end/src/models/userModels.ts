@@ -22,5 +22,17 @@ export const findUserByUsername = async (username: string) => {
 };
 
 export const createUser = async (user: User) => {
-  return knexInstance<User>("users").insert(user).returning("*");
+  return knexInstance("users")
+    .insert({
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      pseudo: user.pseudo,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      roles: user.roles ?? [],
+      admin: user.admin ?? false,
+      created_at: new Date(),
+    })
+    .returning("*");
 };

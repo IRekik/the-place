@@ -38,6 +38,18 @@ const authenticateToken = (
   });
 };
 
+// Middleware to ensure the authenticated user is an admin
+const ensureAdmin = (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user as any;
+  if (!user) {
+    return res.status(401).json({ error: "Unauthorized - Missing user" });
+  }
+  if (!user.admin) {
+    return res.status(403).json({ error: "Forbidden - Admins only" });
+  }
+  return next();
+};
+
 // Middleware that checks a page password from request headers or body
 const loginMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // You can pass the password via header or body
@@ -62,4 +74,4 @@ const loginMiddleware = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export { authenticateToken, loginMiddleware };
+export { authenticateToken, loginMiddleware, ensureAdmin };

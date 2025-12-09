@@ -1,11 +1,11 @@
 import express from "express";
 import knexInstance from "../../../../utils/db";
-import { authenticateToken } from "../../../../middleware/authMiddleware";
+import { authenticateToken, ensureAdmin } from "../../../../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Delete API endpoint: deletes element from the database using provided ID
-router.delete("/:postId", authenticateToken, async (req, res) => {
+router.delete("/:postId", authenticateToken, ensureAdmin, async (req, res) => {
   try {
     const postId = req.params.postId;
 

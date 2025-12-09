@@ -1,12 +1,12 @@
 import express from "express";
 import uploadBase64Image from "../../../../utils/cloudinaryIntegration";
 import knexInstance from "../../../../utils/db";
-import { authenticateToken } from "../../../../middleware/authMiddleware";
+import { authenticateToken, ensureAdmin } from "../../../../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Post API endpoint: inserts post's attributes inside the database
-router.post("/", authenticateToken, async (req, res) => {
+router.post("/", authenticateToken, ensureAdmin, async (req, res) => {
   try {
     const { title, text_content, img_reference } = req.body;
     const tzoffset = new Date().getTimezoneOffset() * 60000;

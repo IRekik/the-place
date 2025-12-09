@@ -7,6 +7,7 @@ interface EllipsisMenuProps {
 
 const EllipsisMenu: React.FC<EllipsisMenuProps> = ({ onDelete, onEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
@@ -21,12 +22,22 @@ const EllipsisMenu: React.FC<EllipsisMenuProps> = ({ onDelete, onEdit }) => {
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
 
+    try {
+      const rawUser = localStorage.getItem("user");
+      if (rawUser) {
+        const user = JSON.parse(rawUser);
+        setIsAdmin(Boolean(user?.admin));
+      }
+    } catch (err) {
+      setIsAdmin(false);
+    }
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
   return (
-    <div className="absolute inline-block right-[15%] mr-2">
+    <div ref={menuRef} className="absolute inline-block right-[15%] mr-2">
       <div>
         <button
           type="button"
@@ -58,26 +69,32 @@ const EllipsisMenu: React.FC<EllipsisMenuProps> = ({ onDelete, onEdit }) => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <button
-              onClick={() => {
-                onEdit();
-                setIsOpen(false);
-              }}
-              className="text-gray-700 block px-4 py-2 text-sm w-full text-left hover:bg-gray-100"
-              role="menuitem"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => {
-                onDelete();
-                setIsOpen(false);
-              }}
-              className="text-gray-700 block px-4 py-2 text-sm w-full text-left hover:bg-gray-100"
-              role="menuitem"
-            >
-              Delete
-            </button>
+            {isAdmin ? (
+              <>
+                <button
+                  onClick={() => {
+                    onEdit();
+                    setIsOpen(false);
+                  }}
+                  className="text-gray-700 block px-4 py-2 text-sm w-full text-left hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => {
+                    onDelete();
+                    setIsOpen(false);
+                  }}
+                  className="text-gray-700 block px-4 py-2 text-sm w-full text-left hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  Delete
+                </button>
+              </>
+            ) : (
+              <div className="text-gray-400 block px-4 py-2 text-sm w-full text-left">Not allowed</div>
+            )}
           </div>
         </div>
       )}

@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
       id: existingUser.id,
       email: existingUser.email,
       username: existingUser.username,
+      admin: existingUser.admin,
     } as Partial<User>;
 
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
