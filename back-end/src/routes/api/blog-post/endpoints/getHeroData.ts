@@ -1,6 +1,6 @@
 import express from "express";
 import knexInstance from "../../../../utils/db";
-import authenticateToken from "../../../../middleware/authMiddleware";
+import { authenticateToken } from "../../../../middleware/authMiddleware";
 
 const router = express.Router();
 
