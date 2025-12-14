@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
     roles TEXT[] DEFAULT '{}',
     first_name VARCHAR(50),
     last_name VARCHAR(50),
-    pseudo VARCHAR(50) NOT NULL;
-    created_at TIMESTAMP DEFAULT NOW()
+    pseudo VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
