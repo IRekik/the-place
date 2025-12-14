@@ -1,42 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  const [user, setUser] = useState<{ pseudo?: string; username?: string } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    try {
-      const token = localStorage.getItem("token");
-      const rawUser = localStorage.getItem("user");
-      if (token && rawUser) {
-        try {
-          setUser(JSON.parse(rawUser));
-        } catch (err) {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
-    } catch (err) {
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const { user, isLoading, logout } = useAuth();
 
   const handleLogout = () => {
-    try {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-    } catch (err) {
-      console.warn("localStorage clear failed", err);
-    }
-    setUser(null);
+    logout();
     router.push("/");
   };
 

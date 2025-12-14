@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import { parseContent } from "../../utils/contentBoxParser";
 import "react-quill/dist/quill.snow.css";
 import SERVER_URL from "../../utils/environmentVariables/serverUrl";
@@ -10,32 +11,14 @@ import ContentEditor from "@/components/new-post/ContentEditor";
 
 const NewPost: React.FC = () => {
   const router = useRouter();
-  const [isChecking, setIsChecking] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { user, isLoading } = useAuth();
 
-  // Check admin status immediately and redirect before any rendering
+  // Redirect if not admin
   useEffect(() => {
-    let userIsAdmin = false;
-    
-    try {
-      const rawUser = localStorage.getItem("user");
-      if (rawUser) {
-        const user = JSON.parse(rawUser);
-        userIsAdmin = Boolean(user?.admin);
-      }
-    } catch (err) {
-      userIsAdmin = false;
-    }
-
-    if (!userIsAdmin) {
-      // Redirect immediately, don't even show the page
+    if (!isLoading && !user?.admin) {
       router.replace("/404");
-      return;
     }
-
-    setIsAdmin(true);
-    setIsChecking(false);
-  }, [router]);
+  }, [user, isLoading, router]);
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -53,7 +36,7 @@ const NewPost: React.FC = () => {
     setHasEnteredTitle(true);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title) {
       setHasEnteredTitle(false);
@@ -101,7 +84,7 @@ const NewPost: React.FC = () => {
   };
 
   // Don't render anything while checking or if not admin
-  if (isChecking || !isAdmin) {
+  if (isLoading || !user?.admin) {
     return null;
   }
 
@@ -132,7 +115,7 @@ const NewPost: React.FC = () => {
           </p>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <div>
         <div className="mb-4">
           <TitleInput title={title} onTitleChange={handleTitleChange} />
         </div>
@@ -143,12 +126,12 @@ const NewPost: React.FC = () => {
           />
         </div>
         <button
-          type="submit"
-          className="text-white px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 visited:bg-indigo-300"
+          onClick={handleSubmit}
+          className="text-white px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500"
         >
           Post
         </button>
-      </form>
+      </div>
     </div>
   );
 };

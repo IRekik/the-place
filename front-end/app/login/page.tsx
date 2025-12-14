@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Page() {
   const router = useRouter();
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,23 +30,14 @@ export default function Page() {
       if (res.ok) {
         const body = await res.json();
         const token = body?.token;
-        if (token) {
-          try {
-            localStorage.setItem("token", token);
-          } catch (err) {
-            console.warn("Unable to access localStorage:", err);
-          }
+        const userData = body?.user;
+
+        if (token && userData) {
+          // Use the context's login method
+          login(userData, token);
+          router.push("/");
+          return;
         }
-        // store user info returned from the server (if present)
-        if (body?.user) {
-          try {
-            localStorage.setItem("user", JSON.stringify(body.user));
-          } catch (err) {
-            console.warn("Unable to store user in localStorage:", err);
-          }
-        }
-        router.push("/");
-        return;
       }
 
       if (res.status === 400) {
@@ -68,7 +61,7 @@ export default function Page() {
 
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Username</label>
             <input
@@ -94,13 +87,13 @@ export default function Page() {
           </div>
 
           <button
-            type="submit"
+            onClick={handleLogin}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-        </form>
+        </div>
 
         <div className="text-center mt-4">
           <Link href="/register" className="text-blue-600 hover:underline text-sm">
