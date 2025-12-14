@@ -36,3 +36,8 @@ export const createUser = async (user: User) => {
     })
     .returning("*");
 };
+
+export const numberOfUsers = async () => {
+  const result = await knexInstance<User>("users").count("* as count").first() as { count: string | number } | undefined;
+  return result ? Number(result.count) : 0;
+}
