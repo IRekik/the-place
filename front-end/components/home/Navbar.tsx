@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const Navbar: React.FC = () => {
   const router = useRouter();
   const [user, setUser] = useState<{ pseudo?: string; username?: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -23,6 +24,8 @@ const Navbar: React.FC = () => {
       }
     } catch (err) {
       setUser(null);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -45,7 +48,9 @@ const Navbar: React.FC = () => {
         </Link>
 
         <div className="flex items-center gap-4">
-          {user ? (
+          {isLoading ? (
+            <div className="w-20 h-10" />
+          ) : user ? (
             <>
               <span className="text-white">Welcome, {user.pseudo ?? user.username}</span>
               <button
